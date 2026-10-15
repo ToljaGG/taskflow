@@ -1,0 +1,20 @@
+.button {
+    padding: 6px;
+    border: 2px solid black;
+    border-radius: 12px;
+}
+
+.default {
+    background-color: rgb(240, 240, 240);
+    color: black;
+}
+
+.green {
+    background-color: rgb(156, 233, 156);
+    color: black;
+}
+
+.red {
+    background-color: rgb(240, 139, 139);
+    color: black;
+}
