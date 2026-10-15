@@ -1,8 +1,8 @@
-# TaskFlow
+# EN
 
 **TaskFlow** is a web application for task management that helps organize work, track progress, and manage task completion.
 
-## 🚀 Getting Started
+### 🚀 Getting Started
 
 ### Requirements
 
@@ -34,17 +34,17 @@
    npm run dev
    ```
 
-## 📌 About the Project
+### 📌 About the Project
 
 This project was created for frontend development practice.
 
----
 
-# TaskFlow
+
+# RU
 
 **TaskFlow** — веб-приложение для управления задачами, которое помогает организовывать работу, отслеживать прогресс и контролировать выполнение дел.
 
-## 🚀 Запуск проекта
+### 🚀 Запуск проекта
 
 ### Требования
 
@@ -76,6 +76,6 @@ This project was created for frontend development practice.
    npm run dev
    ```
 
-## 📌 О проекте
+### 📌 О проекте
 
 Проект создан для практики frontend-разработки.
