@@ -1,6 +1,7 @@
 import type { Task } from '../model/types'
 import { Button } from '@/shared/ui/Button'
 import { CompleteTaskButton } from '@/features/complete-task/ui/CompleteTaskButton'
+import styles from './TaskCard.module.css'
 
 interface TaskCardProps {
   task: Task
@@ -8,7 +9,7 @@ interface TaskCardProps {
 
 export function TaskCard({ task }: TaskCardProps) {
   return (
-    <article>
+    <article className={styles['card']}>
       <h2>{task.title}</h2>
       <p>{task.description}</p>
 

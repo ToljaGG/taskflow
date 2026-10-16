@@ -1,0 +1,14 @@
+.tasks-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: aliceblue;
+    padding: 16px;
+    border: 2px solid black;
+    border-radius: 8px;
+}
+
+.tasks-container {
+    display: flex;
+    gap: 12px;
+}
