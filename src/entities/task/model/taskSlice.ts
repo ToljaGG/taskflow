@@ -25,18 +25,29 @@ const taskSlice = createSlice({
       )
     },
 
-    toggleTaskStatus(state, action: PayloadAction<string>) {
+    changeTaskStatus(state, action: PayloadAction<{ id: string; status: 'todo' | 'in-progress' | 'done' }>) {
       const task = state.tasks.find(
-        (task) => task.id === action.payload,
+        (task) => task.id === action.payload.id,
       )
 
-      if (task) {
-        task.status = task.status === 'done' ? 'todo' : 'done'
+      if (task) task.status = action.payload.status
+
+      if (task && action.payload.status === 'done') {
+        const today = new Date()
+
+        const year = today.getFullYear()
+        const month = String(today.getMonth() + 1).padStart(2, '0')
+        const day = String(today.getDate()).padStart(2, '0')
+
+        task.completedDate = `${day}-${month}-${year}`
+      }
+      else if (task && action.payload.status !== 'done') {
+        task.completedDate = null
       }
     },
-  },
+  }
 })
 
-export const { addTask, deleteTask, toggleTaskStatus } = taskSlice.actions
+export const { addTask, deleteTask, changeTaskStatus } = taskSlice.actions
 
 export default taskSlice.reducer

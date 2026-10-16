@@ -8,6 +8,6 @@ export interface Task {
   description: string
   status: TaskStatus
   priority: TaskPriority
-  endDate: string | null
   createdDate: string
+  completedDate: string | null
 }
