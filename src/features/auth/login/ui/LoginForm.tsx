@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Button } from '@/shared/ui/Button'
 import { Input } from '@/shared/ui/Input'
-import styles from './LoginForm.module.css'
+import { FormLayout } from '@/shared/ui/FormLayout'
 
 export function LoginForm() {
   const [email, setEmail] = useState('')
@@ -14,7 +14,7 @@ export function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className={styles['login-form']}>
+    <FormLayout onSubmit={handleSubmit}>
       <Input 
         label="Email" 
         id="email" 
@@ -42,6 +42,6 @@ export function LoginForm() {
       <Button type="submit" variant="green">
         Log in
       </Button>
-    </form>
+    </FormLayout>
   )
 }
