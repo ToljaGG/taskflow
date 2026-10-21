@@ -1,0 +1,17 @@
+.field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input {
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
