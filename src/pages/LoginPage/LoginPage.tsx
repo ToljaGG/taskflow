@@ -1,8 +1,12 @@
+import { LoginForm } from "@/features/auth/login/ui/LoginForm";
+import styles from './LoginPage.module.css';
+
 export function LoginPage() {
 
   return (
-    <main>
-      <h2>Login Page</h2>
+    <main className={styles['loginPage']}>
+      <h2>Login</h2>
+      <LoginForm />
     </main>
   )
 }
