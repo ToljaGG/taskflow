@@ -1,3 +1,20 @@
+.formLayout {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    gap: 16px;
+    background-color: aliceblue;
+    padding: 16px;
+    border: 2px solid black;
+    border-radius: 8px;
+    box-shadow: 0px 8px 5px rgba(0, 0, 0, 0.1);
+    min-width: 320px;
+}
+
+.formLayout h2 {
+    text-align: center;
+}
+
 .form {
   display: flex;
   flex-direction: column;

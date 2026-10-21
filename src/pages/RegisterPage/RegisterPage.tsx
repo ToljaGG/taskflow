@@ -1,8 +1,10 @@
+import { RegisterForm } from '@/features/auth/register/ui/RegisterForm'
+
 export function RegisterPage() {
 
   return (
     <main>
-      <h2>Register Page</h2>
+      <RegisterForm />
     </main>
   )
 }
