@@ -17,9 +17,9 @@ export function TaskCard({ task }: TaskCardProps) {
       <h2>{task.title}</h2>
 
       <p>
-        Priority: {task.priority} | 
-        Status: {task.status} | 
-        Created: {task.createdDate} | 
+        Priority: {task.priority} · 
+        Status: {task.status} · 
+        Created: {task.createdDate} · 
         Completed: {task.completedDate ?? '-'}
       </p>
 

@@ -14,7 +14,7 @@ export function LoginForm() {
   }
 
   return (
-    <FormLayout onSubmit={handleSubmit}>
+    <FormLayout onSubmit={handleSubmit} title="Login">
       <Input 
         label="Email" 
         id="email" 
