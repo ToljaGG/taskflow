@@ -1,0 +1,49 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: rgb(0 0 0 / 50%);
+}
+
+.modal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: aliceblue;
+    padding: 16px;
+    border: 2px solid black;
+    border-radius: 8px;
+    box-shadow: 0px 8px 5px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    text-align: center;
+}
+
+.close-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+  padding: 0;
+
+  border: none;
+  background: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: red;
+}
