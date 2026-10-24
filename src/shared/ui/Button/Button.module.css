@@ -9,12 +9,24 @@
     color: black;
 }
 
+.default:hover {
+    background-color: rgb(200, 200, 200);
+}
+
 .green {
     background-color: rgb(156, 233, 156);
     color: black;
 }
 
+.green:hover {
+    background-color: rgb(100, 200, 100);
+}
+
 .red {
     background-color: rgb(240, 139, 139);
     color: black;
+}
+
+.red:hover {
+    background-color: rgb(200, 100, 100);
 }

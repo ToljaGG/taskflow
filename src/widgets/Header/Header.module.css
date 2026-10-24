@@ -11,6 +11,10 @@
     box-shadow: 0px 8px 5px rgba(0, 0, 0, 0.1);
 }
 
+.link:hover {
+    color: rgb(86, 86, 228);
+}
+
 .buttons {
     display: flex;
     gap: 8px;
