@@ -4,6 +4,8 @@ import { Button } from "@/shared/ui/Button"
 import { Input } from "@/shared/ui/Input"
 import { FormLayout } from "@/shared/ui/FormLayout"
 
+import styles from "./RegisterForm.module.css"
+
 export function RegisterForm() {
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
@@ -11,6 +13,7 @@ export function RegisterForm() {
   const [confirmPassword, setConfirmPassword] = useState("")
 
   const [touched, setTouched] = useState({
+    username: false,
     email: false,
     password: false,
     confirmPassword: false,
@@ -18,16 +21,25 @@ export function RegisterForm() {
 
   const [submitError, setSubmitError] = useState("")
 
+  const usernameRules = {
+    empty: username.length == 0
+  }
+  const emailRules = {
+    empty: email.length == 0,
+    valid: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  }
   const passwordRules = {
     minLength: password.length >= 8,
     uppercase: /[A-Z]/.test(password),
     lowercase: /[a-z]/.test(password),
     digit: /[0-9]/.test(password),
     special: /[^A-Za-z0-9]/.test(password),
+    latinOnly: /^[A-Za-z0-9 !@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~]+$/.test(password),
+    noSpaces: !/\s/.test(password),
   }
-  const emailRules = {
-    empty: email.length == 0,
-    valid: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
+  const confirmPasswordRules = {
+    empty: confirmPassword.length == 0,
+    confirm: password == confirmPassword
   }
 
   function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
@@ -66,6 +78,7 @@ export function RegisterForm() {
 
   return (
     <FormLayout onSubmit={handleSubmit} title="Register">
+
       <Input
         label="Username"
         id="username"
@@ -74,9 +87,14 @@ export function RegisterForm() {
         autoComplete="username"
         value={username}
         onChange={(event) => setUsername(event.target.value)}
+        onBlur={() => setTouched({ ...touched, username: true })}
         placeholder="Enter your username"
         required
       />
+
+      {touched.username && usernameRules.empty && (
+        <p className={styles['error']}>Username is required</p>
+      )}
 
       <Input
         label="Email"
@@ -93,9 +111,12 @@ export function RegisterForm() {
 
       {touched.email && (
         <>
-          {emailRules.empty && <p>Email is required</p>}
+          {emailRules.empty && 
+            <p className={styles['error']}>Email is required</p>
+          }
+
           {!emailRules.valid && !emailRules.empty && (
-            <p>Invalid email address</p>
+            <p className={styles['error']}>Invalid email address</p>
           )}
         </>
       )}
@@ -108,17 +129,35 @@ export function RegisterForm() {
         autoComplete="current-password"
         value={password}
         onChange={(event) => setPassword(event.target.value)}
+        onBlur={() => setTouched({ ...touched, password: true })}
         placeholder="Enter your password"
         required
       />
 
-      <ul>
-        <li>{passwordRules.minLength ? "✓" : "○"} At least 8 characters</li>
-        <li>{passwordRules.uppercase ? "✓" : "○"} One uppercase letter</li>
-        <li>{passwordRules.lowercase ? "✓" : "○"} One lowercase letter</li>
-        <li>{passwordRules.digit ? "✓" : "○"} One number</li>
-        <li>{passwordRules.special ? "✓" : "○"} One special character</li>
-      </ul>
+      {touched.password && (
+        <>
+          {!passwordRules.latinOnly && password.length > 0 && <p className={styles['error']}>Only Latin characters are allowed</p>}
+          {!passwordRules.noSpaces && password.length > 0 && <p className={styles['error']}>Spaces are not allowed</p>}
+
+          <ul>
+            <li className={passwordRules.minLength ? styles.valid : styles.error}>
+                {passwordRules.minLength ? "✓" : "×"} At least 8 characters
+            </li>
+            <li className={passwordRules.uppercase ? styles.valid : styles.error}>
+                {passwordRules.uppercase ? "✓" : "×"} One uppercase letter
+            </li>
+            <li className={passwordRules.lowercase ? styles.valid : styles.error}>
+              {passwordRules.lowercase ? "✓" : "×"} One lowercase letter
+            </li>
+            <li className={passwordRules.digit ? styles.valid : styles.error}>
+              {passwordRules.digit ? "✓" : "×"} One number
+            </li>
+            <li className={passwordRules.special ? styles.valid : styles.error}>
+              {passwordRules.special ? "✓" : "×"} One special character
+            </li>
+          </ul>
+        </>
+      )}
 
       <Input
         label="Confirm Password"
@@ -128,15 +167,27 @@ export function RegisterForm() {
         autoComplete="current-password"
         value={confirmPassword}
         onChange={(event) => setConfirmPassword(event.target.value)}
+        onBlur={() => setTouched({ ...touched, confirmPassword: true })}
         placeholder="Confirm your password"
         required
       />
+
+      {touched.confirmPassword && password.length > 0 && (
+        <>
+          {confirmPasswordRules.empty && 
+            <p className={styles['error']}>Confirm your password</p>
+          }
+          {!confirmPasswordRules.confirm && !confirmPasswordRules.empty && (
+            <p className={styles['error']}>Passwords do not match</p>
+          )}
+        </>
+      )}
 
       <Button type="submit" variant="green">
         Register
       </Button>
 
-      {submitError && <p>{submitError}</p>}
+      {submitError && <p className={styles['error']}>{submitError}</p>}
     </FormLayout>
   )
 }

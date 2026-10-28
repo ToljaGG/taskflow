@@ -9,7 +9,7 @@ export function FormLayout({ children, title, ...props }: FormLayoutProps) {
   return (
     <div className={styles["formLayout"]}>
       <h2>{title}</h2>
-      <form className={styles["form"]} {...props}>
+      <form className={styles["form"]} {...props} noValidate>
         {children}
       </form>
     </div>
