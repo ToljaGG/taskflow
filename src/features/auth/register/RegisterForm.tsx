@@ -1,4 +1,7 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+
+import { registerUser } from "@/features/auth/auth"
 
 import { Button } from "@/shared/ui/Button"
 import { Input } from "@/shared/ui/Input"
@@ -7,6 +10,8 @@ import { FormLayout } from "@/shared/ui/FormLayout"
 import styles from "./RegisterForm.module.css"
 
 export function RegisterForm() {
+  const navigate = useNavigate()
+
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -22,10 +27,10 @@ export function RegisterForm() {
   const [submitError, setSubmitError] = useState("")
 
   const usernameRules = {
-    empty: username.length == 0
+    empty: username.length > 0
   }
   const emailRules = {
-    empty: email.length == 0,
+    empty: email.length > 0,
     valid: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
   }
   const passwordRules = {
@@ -38,42 +43,43 @@ export function RegisterForm() {
     noSpaces: !/\s/.test(password),
   }
   const confirmPasswordRules = {
-    empty: confirmPassword.length == 0,
+    empty: confirmPassword.length > 0,
     confirm: password == confirmPassword
   }
 
-  function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    setSubmitError("")
+    setTouched({username: true, email: true, password: true, confirmPassword: true })
 
-    const emailInvalid = emailRules.empty || !emailRules.valid
+    const usernameInvalid = Object.values(usernameRules).some((rule) => !rule)
+    const emailInvalid = Object.values(emailRules).some((rule) => !rule)
     const passwordInvalid = Object.values(passwordRules).some((rule) => !rule)
-    const confirmPasswordInvalid = password !== confirmPassword
+    const confirmPasswordInvalid = Object.values(confirmPasswordRules).some((rule) => !rule)
 
-    if (emailInvalid || passwordInvalid || confirmPasswordInvalid) {
+    if (usernameInvalid || emailInvalid || passwordInvalid || confirmPasswordInvalid) {
       setSubmitError("Please fix the errors in the form.")
-      console.log("Form submission prevented due to validation errors:", {
-        emailInvalid,
-        passwordInvalid,
-        confirmPasswordInvalid,
-      })
-      console.log(passwordRules)
-      console.log({
-        password,
-        confirmPassword,
-        passwordsMatch: password === confirmPassword,
-      })
-      console.log("Email validation:", emailRules)
       return
+    } 
+    else {
+      setSubmitError("")
     }
 
-    console.log("Form submitted:", {
-      username,
-      email,
-      password,
-      confirmPassword,
-    })
+    try {
+      await registerUser({
+        username,
+        email,
+        password,
+      })
+
+      navigate("/profile")
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Registration failed.",
+      )
+    }
   }
 
   return (
@@ -92,7 +98,7 @@ export function RegisterForm() {
         required
       />
 
-      {touched.username && usernameRules.empty && (
+      {touched.username && !usernameRules.empty && (
         <p className={styles['error']}>Username is required</p>
       )}
 
@@ -111,11 +117,11 @@ export function RegisterForm() {
 
       {touched.email && (
         <>
-          {emailRules.empty && 
+          {!emailRules.empty && 
             <p className={styles['error']}>Email is required</p>
           }
 
-          {!emailRules.valid && !emailRules.empty && (
+          {!emailRules.valid && emailRules.empty && (
             <p className={styles['error']}>Invalid email address</p>
           )}
         </>
@@ -174,10 +180,10 @@ export function RegisterForm() {
 
       {touched.confirmPassword && password.length > 0 && (
         <>
-          {confirmPasswordRules.empty && 
+          {!confirmPasswordRules.empty && 
             <p className={styles['error']}>Confirm your password</p>
           }
-          {!confirmPasswordRules.confirm && !confirmPasswordRules.empty && (
+          {!confirmPasswordRules.confirm && confirmPasswordRules.empty && (
             <p className={styles['error']}>Passwords do not match</p>
           )}
         </>
