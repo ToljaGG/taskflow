@@ -1,30 +1,30 @@
-import { useState } from 'react'
-import { Button } from '@/shared/ui/Button'
-import { Input } from '@/shared/ui/Input'
-import { FormLayout } from '@/shared/ui/FormLayout'
+import { useState } from "react"
+import { Button } from "@/shared/ui/Button"
+import { Input } from "@/shared/ui/Input"
+import { FormLayout } from "@/shared/ui/FormLayout"
 
 export function LoginForm() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
   function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    console.log('Login form submitted' + '\n' + email + '\n' + password)
+    console.log("Login form submitted" + "\n" + email + "\n" + password)
   }
 
   return (
     <FormLayout onSubmit={handleSubmit} title="Login">
-      <Input 
-        label="Email" 
-        id="email" 
-        name="email" 
-        type="email" 
-        autoComplete="email" 
-        value={email} 
-        onChange={(event) => setEmail(event.target.value)} 
-        placeholder="Enter your email" 
-        required 
+      <Input
+        label="Email"
+        id="email"
+        name="email"
+        type="email"
+        autoComplete="email"
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
+        placeholder="Enter your email"
+        required
       />
 
       <Input

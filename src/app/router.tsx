@@ -1,31 +1,31 @@
-import { createBrowserRouter } from 'react-router-dom'
-import { AppLayout } from '@/app/AppLayout'
+import { createBrowserRouter } from "react-router-dom"
+import { AppLayout } from "@/app/AppLayout"
 
-import { TasksPage } from '@/pages/TasksPage'
-import { ProfilePage } from '@/pages/ProfilePage'
-import { LoginPage } from '@/pages/LoginPage'
-import { RegisterPage } from '@/pages/RegisterPage'
+import { TasksPage } from "@/pages/TasksPage"
+import { ProfilePage } from "@/pages/ProfilePage"
+import { LoginPage } from "@/pages/LoginPage"
+import { RegisterPage } from "@/pages/RegisterPage"
 
 export const router = createBrowserRouter([
   {
     element: <AppLayout />,
     children: [
       {
-        path: '/',
+        path: "/",
         element: <TasksPage />,
       },
       {
-        path: '/profile',
+        path: "/profile",
         element: <ProfilePage />,
       },
       {
-        path: '/login',
+        path: "/login",
         element: <LoginPage />,
       },
       {
-        path: '/register',
+        path: "/register",
         element: <RegisterPage />,
-      }
+      },
     ],
   },
 ])

@@ -1,12 +1,10 @@
-import { useSelector } from 'react-redux'
-import type { RootState } from '../../app/store'
-import { TaskCard } from '@/entities/task/ui/TaskCard'
-import styles from './TaskList.module.css'
+import { useSelector } from "react-redux"
+import type { RootState } from "../../app/store"
+import { TaskCard } from "@/entities/task/ui/TaskCard"
+import styles from "./TaskList.module.css"
 
 export function TaskList() {
-  const tasks = useSelector(
-    (state: RootState) => state.tasks.tasks,
-  )
+  const tasks = useSelector((state: RootState) => state.tasks.tasks)
 
   return (
     <div className={styles.taskList}>
