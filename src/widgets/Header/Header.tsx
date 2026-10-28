@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { logoutUser } from "@/features/auth/model/auth.ts"
-import { clearCurrentUser } from "@/features/auth/model/authSlice.ts"
+import { logoutUser } from "@/features/auth/model/auth"
+import { clearCurrentUser } from "@/features/auth/model/authSlice"
 import type { RootState, AppDispatch } from "@/app/store"
 
 import { Button } from "@/shared/ui/Button"
@@ -32,6 +32,7 @@ export function Header() {
         {currentUser ? 
           (
             <>
+              <p>{currentUser.username}</p>
               <Button onClick={() => navigate("/profile")}>Profile</Button>
               <Button onClick={handleLogout}>Log out</Button>
             </>

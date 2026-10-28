@@ -1,7 +1,9 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-
+import { useDispatch } from "react-redux"
+import type { AppDispatch } from "@/app/store"
 import { registerUser } from "@/features/auth/model/auth"
+import { setCurrentUser } from "@/features/auth/model/authSlice"
 
 import { Button } from "@/shared/ui/Button"
 import { Input } from "@/shared/ui/Input"
@@ -11,6 +13,7 @@ import styles from "./RegisterForm.module.css"
 
 export function RegisterForm() {
   const navigate = useNavigate()
+  const dispatch = useDispatch<AppDispatch>()
 
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
@@ -66,13 +69,14 @@ export function RegisterForm() {
     }
 
     try {
-      await registerUser({
+      const user = await registerUser({
         username,
         email,
         password,
       })
 
-      navigate("/profile")
+      dispatch(setCurrentUser(user))
+      navigate("/")
     } catch (error) {
       setSubmitError(
         error instanceof Error
@@ -83,7 +87,7 @@ export function RegisterForm() {
   }
 
   return (
-    <FormLayout onSubmit={handleSubmit} title="Register">
+    <FormLayout onSubmit={handleSubmit} title="Registration">
 
       <Input
         label="Username"
@@ -134,7 +138,10 @@ export function RegisterForm() {
         type="password"
         autoComplete="current-password"
         value={password}
-        onChange={(event) => setPassword(event.target.value)}
+        onChange={(event) => {
+          setPassword(event.target.value)
+          setTouched({ ...touched, password: true })
+        }}
         onBlur={() => setTouched({ ...touched, password: true })}
         placeholder="Enter your password"
         required
