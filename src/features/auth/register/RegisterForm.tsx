@@ -30,11 +30,11 @@ export function RegisterForm() {
   const [submitError, setSubmitError] = useState("")
 
   const usernameRules = {
-    empty: username.length > 0
+    empty: username.length > 0,
   }
   const emailRules = {
     empty: email.length > 0,
-    valid: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    valid: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
   }
   const passwordRules = {
     minLength: password.length >= 8,
@@ -42,29 +42,42 @@ export function RegisterForm() {
     lowercase: /[a-z]/.test(password),
     digit: /[0-9]/.test(password),
     special: /[^A-Za-z0-9]/.test(password),
-    latinOnly: /^[A-Za-z0-9 !@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~]+$/.test(password),
+    latinOnly: /^[A-Za-z0-9 !@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~]+$/.test(
+      password,
+    ),
     noSpaces: !/\s/.test(password),
   }
   const confirmPasswordRules = {
     empty: confirmPassword.length > 0,
-    confirm: password == confirmPassword
+    confirm: password == confirmPassword,
   }
 
   async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    setTouched({username: true, email: true, password: true, confirmPassword: true })
+    setTouched({
+      username: true,
+      email: true,
+      password: true,
+      confirmPassword: true,
+    })
 
     const usernameInvalid = Object.values(usernameRules).some((rule) => !rule)
     const emailInvalid = Object.values(emailRules).some((rule) => !rule)
     const passwordInvalid = Object.values(passwordRules).some((rule) => !rule)
-    const confirmPasswordInvalid = Object.values(confirmPasswordRules).some((rule) => !rule)
+    const confirmPasswordInvalid = Object.values(confirmPasswordRules).some(
+      (rule) => !rule,
+    )
 
-    if (usernameInvalid || emailInvalid || passwordInvalid || confirmPasswordInvalid) {
+    if (
+      usernameInvalid ||
+      emailInvalid ||
+      passwordInvalid ||
+      confirmPasswordInvalid
+    ) {
       setSubmitError("Please fix the errors in the form.")
       return
-    } 
-    else {
+    } else {
       setSubmitError("")
     }
 
@@ -79,16 +92,13 @@ export function RegisterForm() {
       navigate("/")
     } catch (error) {
       setSubmitError(
-        error instanceof Error
-          ? error.message
-          : "Registration failed.",
+        error instanceof Error ? error.message : "Registration failed.",
       )
     }
   }
 
   return (
     <FormLayout onSubmit={handleSubmit} title="Registration">
-
       <Input
         label="Username"
         id="username"
@@ -103,7 +113,7 @@ export function RegisterForm() {
       />
 
       {touched.username && !usernameRules.empty && (
-        <p className={styles['error']}>Username is required</p>
+        <p className={styles["error"]}>Username is required</p>
       )}
 
       <Input
@@ -121,12 +131,12 @@ export function RegisterForm() {
 
       {touched.email && (
         <>
-          {!emailRules.empty && 
-            <p className={styles['error']}>Email is required</p>
-          }
+          {!emailRules.empty && (
+            <p className={styles["error"]}>Email is required</p>
+          )}
 
           {!emailRules.valid && emailRules.empty && (
-            <p className={styles['error']}>Invalid email address</p>
+            <p className={styles["error"]}>Invalid email address</p>
           )}
         </>
       )}
@@ -149,17 +159,27 @@ export function RegisterForm() {
 
       {touched.password && (
         <>
-          {!passwordRules.latinOnly && password.length > 0 && <p className={styles['error']}>Only Latin characters are allowed</p>}
-          {!passwordRules.noSpaces && password.length > 0 && <p className={styles['error']}>Spaces are not allowed</p>}
+          {!passwordRules.latinOnly && password.length > 0 && (
+            <p className={styles["error"]}>Only Latin characters are allowed</p>
+          )}
+          {!passwordRules.noSpaces && password.length > 0 && (
+            <p className={styles["error"]}>Spaces are not allowed</p>
+          )}
 
           <ul>
-            <li className={passwordRules.minLength ? styles.valid : styles.error}>
-                {passwordRules.minLength ? "✓" : "×"} At least 8 characters
+            <li
+              className={passwordRules.minLength ? styles.valid : styles.error}
+            >
+              {passwordRules.minLength ? "✓" : "×"} At least 8 characters
             </li>
-            <li className={passwordRules.uppercase ? styles.valid : styles.error}>
-                {passwordRules.uppercase ? "✓" : "×"} One uppercase letter
+            <li
+              className={passwordRules.uppercase ? styles.valid : styles.error}
+            >
+              {passwordRules.uppercase ? "✓" : "×"} One uppercase letter
             </li>
-            <li className={passwordRules.lowercase ? styles.valid : styles.error}>
+            <li
+              className={passwordRules.lowercase ? styles.valid : styles.error}
+            >
               {passwordRules.lowercase ? "✓" : "×"} One lowercase letter
             </li>
             <li className={passwordRules.digit ? styles.valid : styles.error}>
@@ -187,11 +207,11 @@ export function RegisterForm() {
 
       {touched.confirmPassword && password.length > 0 && (
         <>
-          {!confirmPasswordRules.empty && 
-            <p className={styles['error']}>Confirm your password</p>
-          }
+          {!confirmPasswordRules.empty && (
+            <p className={styles["error"]}>Confirm your password</p>
+          )}
           {!confirmPasswordRules.confirm && confirmPasswordRules.empty && (
-            <p className={styles['error']}>Passwords do not match</p>
+            <p className={styles["error"]}>Passwords do not match</p>
           )}
         </>
       )}
@@ -200,7 +220,7 @@ export function RegisterForm() {
         Register
       </Button>
 
-      {submitError && <p className={styles['error']}>{submitError}</p>}
+      {submitError && <p className={styles["error"]}>{submitError}</p>}
     </FormLayout>
   )
 }

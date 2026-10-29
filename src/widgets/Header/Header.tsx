@@ -11,9 +11,7 @@ import styles from "./Header.module.css"
 export function Header() {
   const navigate = useNavigate()
   const dispatch = useDispatch<AppDispatch>()
-  const currentUser = useSelector(
-    (state: RootState) => state.auth.currentUser,
-  )
+  const currentUser = useSelector((state: RootState) => state.auth.currentUser)
 
   function handleLogout() {
     logoutUser()
@@ -29,22 +27,18 @@ export function Header() {
         </Link>
       </h1>
       <div className={styles.buttons}>
-        {currentUser ? 
-          (
-            <>
-              <p>{currentUser.username}</p>
-              <Button onClick={() => navigate("/profile")}>Profile</Button>
-              <Button onClick={handleLogout}>Log out</Button>
-            </>
-          ) 
-          : 
-          (
-            <>
-              <Button onClick={() => navigate("/login")}>Login</Button>
-              <Button onClick={() => navigate("/register")}>Register</Button>
-            </>
-          )
-        }
+        {currentUser ? (
+          <>
+            <p>{currentUser.username}</p>
+            <Button onClick={() => navigate("/profile")}>Profile</Button>
+            <Button onClick={handleLogout}>Log out</Button>
+          </>
+        ) : (
+          <>
+            <Button onClick={() => navigate("/login")}>Login</Button>
+            <Button onClick={() => navigate("/register")}>Register</Button>
+          </>
+        )}
       </div>
     </header>
   )

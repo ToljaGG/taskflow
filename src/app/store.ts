@@ -5,7 +5,7 @@ import authReducer from "@/features/auth/model/authSlice"
 export const store = configureStore({
   reducer: {
     tasks: taskReducer,
-    auth: authReducer
+    auth: authReducer,
   },
 })
 

@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
 import type { RootState } from "@/app/store"
 
 import { TaskList } from "@/widgets/TaskList"
@@ -11,10 +10,7 @@ import { Modal } from "@/shared/ui/Modal"
 import styles from "./TasksPage.module.css"
 
 export function TasksPage() {
-  const navigate = useNavigate()
-  const currentUser = useSelector(
-    (state: RootState) => state.auth.currentUser,
-  )
+  const currentUser = useSelector((state: RootState) => state.auth.currentUser)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -32,7 +28,7 @@ export function TasksPage() {
 
   return (
     <main>
-      <section className={`${styles.section} ${styles.tasks}`}>
+      <section className={styles["section"]}>
         <div className={styles["tasks-header"]}>
           <h2>My tasks</h2>
           <Input placeholder="Search tasks..." />

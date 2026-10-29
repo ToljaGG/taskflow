@@ -26,11 +26,7 @@ export function LoginForm() {
       dispatch(setCurrentUser(user))
       navigate("/")
     } catch (error) {
-      setSubmitError(
-      error instanceof Error
-      ? error.message
-      : "Login failed.",
-      )
+      setSubmitError(error instanceof Error ? error.message : "Login failed.")
     }
   }
 
@@ -64,7 +60,9 @@ export function LoginForm() {
         Log in
       </Button>
 
-      {submitError && <p style={{ color: "red", fontWeight: "bold" }}>{submitError}</p>}
+      {submitError && (
+        <p style={{ color: "red", fontWeight: "bold" }}>{submitError}</p>
+      )}
     </FormLayout>
   )
 }

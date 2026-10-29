@@ -49,10 +49,7 @@ export async function registerUser(data: {
     passwordHash,
   }
 
-  localStorage.setItem(
-    USERS_KEY,
-    JSON.stringify([...users, newUser]),
-  )
+  localStorage.setItem(USERS_KEY, JSON.stringify([...users, newUser]))
 
   localStorage.setItem(CURRENT_USER_KEY, newUser.id)
 
